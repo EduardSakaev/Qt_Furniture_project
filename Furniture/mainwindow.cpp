@@ -7,7 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Widget_Parameters widget_par;
+    //constants
+    MainWindow_Parameters mainwin_par;
+    Input_data_Validator  input_data_val;
+    dialog_box = NULL;
 
     //widget for location objects preview
     QPalette pal_widgets_background;
@@ -23,8 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scrollBar_obj->setDisabled(true);
     ui->scrollBar_obj->setVisible(false);
 
-    ui->tableWidget->horizontalHeader()->resizeSection(0, 150);
-    ui->tableWidget->horizontalHeader()->resizeSection(1, 105);
+    ui->tableWidget->horizontalHeader()->resizeSection(0, 126);
+    ui->tableWidget->horizontalHeader()->resizeSection(1, 130);
     ui->tableWidget-> resize(QSize(265, 350));
     QStringList q_table_list;
     q_table_list << "Width" << "Height" << "Size";
@@ -41,14 +44,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //main window
     this->setWindowTitle("This is my first program");
-    this->setGeometry(500, 300, widget_par.m_window_size_x,widget_par.m_window_size_y);
+    this->setGeometry(mainwin_par.x_top, mainwin_par.y_top, mainwin_par.width,mainwin_par.height);
     this->setAutoFillBackground(true);
     this->setCursor(Qt::OpenHandCursor);
-    this->setMaximumSize(1024, 868);
+    this->setMaximumSize(mainwin_par.max_width, mainwin_par.max_height);
 
-    ui->lineEdit_width->setValidator(new QIntValidator(1, 65536, ui->lineEdit_width));
-    ui->lineEdit_height->setValidator(new QIntValidator(1, 65536, ui->lineEdit_height));
-    ui->lineEdit_numbers->setValidator(new QIntValidator(1, 100, ui->lineEdit_numbers));
+    ui->lineEdit_width->setValidator(new QIntValidator(1, input_data_val.width, ui->lineEdit_width));
+    ui->lineEdit_height->setValidator(new QIntValidator(1, input_data_val.height, ui->lineEdit_height));
+    ui->lineEdit_numbers->setValidator(new QIntValidator(1, input_data_val.number, ui->lineEdit_numbers));
 }
 
 MainWindow::~MainWindow()
@@ -56,12 +59,6 @@ MainWindow::~MainWindow()
     //delete pbxLayout;
     delete ui;
 }
-
-/*void MainWindow::handleButtonA()
-{
-    cout << "handleButtonA" << endl;
-    wgt_elem[Counter].setVisible(false);
-}*/
 
 void MainWindow::on_AddButton_pressed()
 {
@@ -140,4 +137,15 @@ void MainWindow::on_lineEdit_numbers_textEdited(const QString &arg1)
     int value = arg1.toInt();
     if (value == 0)
         ui->lineEdit_numbers->clear();
+}
+
+void MainWindow::on_run_placing_button_pressed()
+{
+    //create new window first;
+    if (dialog_box)
+        delete dialog_box;
+
+    dialog_box = new Dialog(this);
+    dialog_box->show();
+    cout << "on_run_placing_button_pressed" << endl;
 }

@@ -9,19 +9,9 @@
 #include <QSyntaxHighlighter>
 #include <QMap>
 #include <QTableWidgetItem>
+#include "Dialog.h"
 
 using namespace std;
-
-typedef struct
-{
-    int x_top           = 600;
-    int y_top           = 15;
-    int size_x          = 100;
-    int size_y          = 100;
-    int i_gap           = 15;
-    int m_window_size_x = 640;
-    int m_window_size_y = 640;
-}Widget_Parameters;
 
 namespace Ui {
 class MainWindow;
@@ -37,6 +27,7 @@ class MainWindow : public QMainWindow
     QStack<QWidget *> q_obj_widget_big;
 
     QTableWidgetItem * ptwi;
+    Dialog * dialog_box;
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -50,6 +41,7 @@ private slots:
     void on_lineEdit_width_textChanged(const QString &arg1);
     void on_lineEdit_height_textEdited(const QString &arg1);
     void on_lineEdit_numbers_textEdited(const QString &arg1);
+    void on_run_placing_button_pressed();
 };
 
 #endif // MAINWINDOW_H
