@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,8 +14,16 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    Dialog.cpp \
+    Printer.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    ../Dialog.h \
+    Dialog.h \
+    Dialog.h \
+    Constants.h \
+    Printer.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dialog.ui

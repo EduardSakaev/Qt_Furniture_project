@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(m_button_c, SIGNAL(released()), this, SLOT(handleButtonC()));
 
     //main window
-    this->setWindowTitle("This is my first program");
+    this->setWindowTitle("Placing elements on the sheet");
     this->setGeometry(mainwin_par.x_top, mainwin_par.y_top, mainwin_par.width,mainwin_par.height);
     this->setAutoFillBackground(true);
     this->setCursor(Qt::OpenHandCursor);
@@ -56,7 +56,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    //delete pbxLayout;
     delete ui;
 }
 
@@ -87,7 +86,7 @@ void MainWindow::on_AddButton_pressed()
         QPalette obj_pal;
         for (int i = 0; i < i_num_obj; ++i)
         {
-            QWidget * widj_obj = new QWidget(ui->widget_obj_background);
+            QWidget * widg_obj = new QWidget(ui->widget_obj_background);
             int size_s = q_obj_widget_small.size();
             QString str;
 
@@ -96,19 +95,19 @@ void MainWindow::on_AddButton_pressed()
                 indent_y = q_obj_widget_small.last()->height() + q_obj_widget_small.last()->y() + 5;
             }
             str = size_s;
-            obj_pal.setColor(widj_obj->backgroundRole(), Qt::blue);
-            widj_obj->setPalette(obj_pal);
-            widj_obj->setAutoFillBackground(true);
-            widj_obj->setGeometry(indent_x, indent_y, i_width_obj, i_height_obj);
-            widj_obj->setParent(ui->widget_obj_background);
-            widj_obj->show();
+            obj_pal.setColor(widg_obj->backgroundRole(), Qt::blue);
+            widg_obj->setPalette(obj_pal);
+            widg_obj->setAutoFillBackground(true);
+            widg_obj->setGeometry(indent_x, indent_y, i_width_obj, i_height_obj);
+            widg_obj->setParent(ui->widget_obj_background);
+            widg_obj->show();
 
             ui->tableWidget->insertRow(0);
             ui->tableWidget->reset();
             ui->tableWidget->setItem(0, 0, new QTableWidgetItem(string_width));
             ui->tableWidget->setItem(0, 1, new QTableWidgetItem(string_height));
             ui->tableWidget->setEditTriggers(QTableWidget::NoEditTriggers);
-            q_obj_widget_small.push(widj_obj);
+            q_obj_widget_small.push_back(widg_obj);
         }
 
         ui->label_error->setText("");
@@ -147,5 +146,6 @@ void MainWindow::on_run_placing_button_pressed()
 
     dialog_box = new Dialog(this);
     dialog_box->show();
+    dialog_box->DrawData(q_obj_widget_small);
     cout << "on_run_placing_button_pressed" << endl;
 }
